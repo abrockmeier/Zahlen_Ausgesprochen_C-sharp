@@ -11,6 +11,14 @@ namespace Zahlen_Ausgesprochen_C_sharp
 		//MAIN... incl EINGABE und Programmablauf
 		static void Main(string[] args)
 		{
+
+		Eingabe();
+					
+		}
+
+		static int Eingabe() // TODO ---> eine Aufgabe je Methode... ;-)
+		{
+			bool firstintput = true;
 			bool loopbreak = false;
 			int inteingabe;
 
@@ -18,44 +26,46 @@ namespace Zahlen_Ausgesprochen_C_sharp
 			string eingabe = Console.ReadLine();
 			bool ceingabe = Int32.TryParse(eingabe, out (inteingabe));
 			
+			int stellen = anZahlen(inteingabe);
 
-
+			if (firstintput)
 			while (!ceingabe) //ToDo: in Methode packen 
 			{
+				
+
 				Console.WriteLine("Sie haben {0}, eingegeben! Bitte eine Zahl" +
 				" zwischen -2.147.483.648 und 2.147.483.647 eingeben", eingabe);
 				eingabe = Console.ReadLine();
 				ceingabe = Int32.TryParse(eingabe, out (inteingabe));
-			}
-
-			int stellen = anZahlen(inteingabe);
 			Console.WriteLine(ConvertToAusgesprochen(inteingabe,stellen));
-
-
-			while (!loopbreak)
-			{ 
-				Console.WriteLine("Wenn sie noch eine weitere Zahl eingeben möchten," +
-				" bitte drücken sie: 'j' ");
-				Console.WriteLine("Jede andere Taste beendet das Programm!");
-				ConsoleKeyInfo caseInput = Console.ReadKey(true);
-				switch (caseInput.Key)
-				{
-					case ConsoleKey.J:
-						Console.Write("Bitte eine Zahl eingeben:");
-						eingabe = Console.ReadLine();
-						ceingabe = Int32.TryParse(eingabe, out (inteingabe));
-						stellen = anZahlen(inteingabe);
-						Console.WriteLine(ConvertToAusgesprochen(inteingabe,stellen));
-						break;
-					default:
-						loopbreak = true;
-						break;
-				}
-
+			return (inteingabe);
 			}
-
-			// Console.WriteLine(hunderter + "und" + einer + zehner, hunderter
-			// , einer, zehner);
+			else
+			{
+				while (!loopbreak)
+				{
+					Console.WriteLine("Wenn sie noch eine weitere Zahl eingeben möchten," +
+					" bitte drücken sie: 'j' ");
+					Console.WriteLine("Jede andere Taste beendet das Programm!");
+					ConsoleKeyInfo caseInput = Console.ReadKey(true);
+					switch (caseInput.Key)
+					{
+						case ConsoleKey.J:
+							Console.Write("Bitte eine Zahl eingeben:");
+							eingabe = Console.ReadLine();
+							ceingabe = Int32.TryParse(eingabe, out (inteingabe));
+							stellen = anZahlen(inteingabe);
+							Console.WriteLine(ConvertToAusgesprochen(inteingabe, stellen));
+							return (inteingabe);
+							//break;
+						default:
+							loopbreak = true;
+							return(0);
+							//break;
+					}
+				}
+			}
+					return(1);
 		}
 
 		//VERARBEITUNG
@@ -120,15 +130,12 @@ namespace Zahlen_Ausgesprochen_C_sharp
 			}
 			else if (stellen == 2)
 			{
-				//return(string.Concat(string.Concat(string.Concat(EinerStelle(Zahl,stellen),
-				//" = ("), ZehnerStelle(Zahl),")\n")));
-
 				return(string.Concat(string.Concat(string.Concat(EinerStelle(Zahl,stellen),
 				ZehnerStelle(Zahl)," = (" + Zahl+")"))));
 			}
 			else if (stellen == 3)
 			{
-				// pos INT
+				
 				return("100-999");
 				
 			}
@@ -187,7 +194,7 @@ namespace Zahlen_Ausgesprochen_C_sharp
 				if (Einer == 55) return ("sieben");
 				if (Einer == 56) return ("acht");
 				if (Einer == 57) return ("neun");
-				return ("Something went wrong ;-)... ");
+				return ("Something went wrong EinerStelle if ;-)... ");
 			}
 			else
 			{
@@ -203,7 +210,7 @@ namespace Zahlen_Ausgesprochen_C_sharp
 				if (Einer == 55) return ("siebenund");
 				if (Einer == 56) return ("achtund");
 				if (Einer == 57) return ("neunund");
-				return ("Something went wrong ;-)... ");
+				return ("Something went wrong EinerStelle else ;-)... ");
 			}
 		// Einerstelle bestimmen und String zurückgeben.
 		}
@@ -222,7 +229,7 @@ namespace Zahlen_Ausgesprochen_C_sharp
 				if (Zehner == 55) return ("siebzig");
 				if (Zehner == 56) return ("achtzig");
 				if (Zehner == 57) return ("neunzig");
-				return ("Something went wrong ;-)... ");
+				return ("Something went wrong ZehnerStelle ;-)... ");
 			//return (Convert.ToString(zehner));
 		// Einerstelle bestimmen und String zurückgeben.
 		}

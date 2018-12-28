@@ -92,7 +92,7 @@ namespace Zahlen_Ausgesprochen_C_sharp
 				return("1000-9999");
 				
 			}
-			else if (Zahl < 10000) // stellen <= 2 &&
+			else if (Zahl > 10000) // stellen <= 2 &&
 			{
 				// pos INT
 				return("Sie sind größenwahsinnig! Ihre Zahl hat: "+stellen + " Stellen...");

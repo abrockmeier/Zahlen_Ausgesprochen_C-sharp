@@ -68,17 +68,64 @@ namespace Zahlen_Ausgesprochen_C_sharp
 				return ("Null !NULL");
 
 			}
+			else if (Zahl == 11)
+			{
+				Console.WriteLine("ölf");
+				return ("Elf");
+			}
+			else if (Zahl == 12)
+			{
+				Console.WriteLine("zwölf");
+				return ("Zwölf");
+			}
+			else if (Zahl == 13)
+			{
+				Console.WriteLine("dreizehn");
+				return ("dreizehn");
+			}
+			else if (Zahl == 14)
+			{
+				Console.WriteLine("vierzehn");
+				return ("vierzehn");
+			}
+			else if (Zahl == 15)
+			{
+				Console.WriteLine("ünf10");
+				return ("unf10");
+			}
+			else if (Zahl == 16)
+			{
+				Console.WriteLine("6zehn");
+				return ("6zehn");
+			}
+			else if (Zahl == 17)
+			{
+				Console.WriteLine("7zehn");
+				return ("7zehn");
+			}
+			else if (Zahl == 18)
+			{
+				Console.WriteLine("8zehn");
+				return ("8zehn");
+			}
+			else if (Zahl == 19)
+			{
+				Console.WriteLine("neunzehn");
+				return ("neunzehn");
+			}
+			
 			else if (stellen == 1)
 			{
-				// pos INT
-				return("1-9");
-				
+				return (EinerStelle(Zahl,stellen));
+			}
+			if (Zahl == 20 || Zahl == 20 || Zahl == 30 || Zahl == 40 || 
+				Zahl == 50 || Zahl == 60 || Zahl == 70 || Zahl == 80 || Zahl == 90 )
+			{
+				return("x Zehn");
 			}
 			else if (stellen == 2)
 			{
-				// pos INT
-				return("10-99");
-				
+				return(string.Concat(string.Concat(EinerStelle(Zahl,stellen), "und"), ZehnerStelle(Zahl)));
 			}
 			else if (stellen == 3)
 			{
@@ -125,24 +172,40 @@ namespace Zahlen_Ausgesprochen_C_sharp
 			else return 10;
 		}
 
-		static string einerStelle(int einer)
-		{
-			return ("einer");
+		static string EinerStelle(int Zahl,int stellen)
+		{		
+				string strZahl = Convert.ToString(Zahl);
+				int Einer = strZahl[stellen - 1];
+				if (Einer == 48) return("null");
+				if (Einer == 49) return("eins");
+				if (Einer == 50) return("zwei");
+				if (Einer == 51) return("drei");
+				if (Einer == 52) return("vier");
+				if (Einer == 53) return("fünf");
+				if (Einer == 54) return("sechs");
+				if (Einer == 55) return("sieben");
+				if (Einer == 56) return("acht");
+				if (Einer == 57) return("neun");
+				return("Something went wrong ;-)... ");
+
 		// Einerstelle bestimmen und String zurückgeben.
 		}
 
-		static string zehnerStelle(int zehner)
+		static string ZehnerStelle(int zehner)
 		{
-			return ("Zehner");
+			string strZahl = Convert.ToString(zehner);
+			int Zehner = Convert.ToInt32(strZahl[1]);
+			// if...
+			return (Convert.ToString(zehner));
 		// Einerstelle bestimmen und String zurückgeben.
 		}
 
-		static string hunderterStelle()
+		static string HunderterStelle(int hunderter)
 		{
 			return ("hunderter");
 		}
 
-		static string tausenderStellen()
+		static string TausenderStellen(int tausender)
 		{
 			return ("tausender");
 		}

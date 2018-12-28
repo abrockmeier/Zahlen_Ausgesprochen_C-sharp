@@ -118,14 +118,13 @@ namespace Zahlen_Ausgesprochen_C_sharp
 			{
 				return (EinerStelle(Zahl,stellen));
 			}
-			if (Zahl == 20 || Zahl == 20 || Zahl == 30 || Zahl == 40 || 
-				Zahl == 50 || Zahl == 60 || Zahl == 70 || Zahl == 80 || Zahl == 90 )
-			{
-				return("x Zehn");
-			}
 			else if (stellen == 2)
 			{
-				return(string.Concat(string.Concat(EinerStelle(Zahl,stellen), "und"), ZehnerStelle(Zahl)));
+				//return(string.Concat(string.Concat(string.Concat(EinerStelle(Zahl,stellen),
+				//" = ("), ZehnerStelle(Zahl),")\n")));
+
+				return(string.Concat(string.Concat(string.Concat(EinerStelle(Zahl,stellen),
+				ZehnerStelle(Zahl)," = (" + Zahl+")"))));
 			}
 			else if (stellen == 3)
 			{
@@ -173,30 +172,58 @@ namespace Zahlen_Ausgesprochen_C_sharp
 		}
 
 		static string EinerStelle(int Zahl,int stellen)
-		{		
+		{
+			if (stellen == 1)
+			{
 				string strZahl = Convert.ToString(Zahl);
 				int Einer = strZahl[stellen - 1];
-				if (Einer == 48) return("null");
-				if (Einer == 49) return("eins");
-				if (Einer == 50) return("zwei");
-				if (Einer == 51) return("drei");
-				if (Einer == 52) return("vier");
-				if (Einer == 53) return("fünf");
-				if (Einer == 54) return("sechs");
-				if (Einer == 55) return("sieben");
-				if (Einer == 56) return("acht");
-				if (Einer == 57) return("neun");
-				return("Something went wrong ;-)... ");
-
+				if (Einer == 48) return ("null");
+				if (Einer == 49) return ("eins");
+				if (Einer == 50) return ("zwei");
+				if (Einer == 51) return ("drei");
+				if (Einer == 52) return ("vier");
+				if (Einer == 53) return ("fünf");
+				if (Einer == 54) return ("sechs");
+				if (Einer == 55) return ("sieben");
+				if (Einer == 56) return ("acht");
+				if (Einer == 57) return ("neun");
+				return ("Something went wrong ;-)... ");
+			}
+			else
+			{
+			string strZahl = Convert.ToString(Zahl);
+				int Einer = strZahl[stellen - 1];
+				if (Einer == 48) return ("");
+				if (Einer == 49) return ("einund");
+				if (Einer == 50) return ("zweiund");
+				if (Einer == 51) return ("dreiund");
+				if (Einer == 52) return ("vierund");
+				if (Einer == 53) return ("fünfund");
+				if (Einer == 54) return ("sechsund");
+				if (Einer == 55) return ("siebenund");
+				if (Einer == 56) return ("achtund");
+				if (Einer == 57) return ("neunund");
+				return ("Something went wrong ;-)... ");
+			}
 		// Einerstelle bestimmen und String zurückgeben.
 		}
 
 		static string ZehnerStelle(int zehner)
 		{
 			string strZahl = Convert.ToString(zehner);
-			int Zehner = Convert.ToInt32(strZahl[1]);
-			// if...
-			return (Convert.ToString(zehner));
+			int Zehner = Convert.ToInt32(strZahl[0]);
+				if (Zehner == 48) return ("");
+				if (Zehner == 49) return ("zehn?");
+				if (Zehner == 50) return ("zwanzig");
+				if (Zehner == 51) return ("dreißig");
+				if (Zehner == 52) return ("vierzig");
+				if (Zehner == 53) return ("fünfzig");
+				if (Zehner == 54) return ("sechzig");
+				if (Zehner == 55) return ("siebzig");
+				if (Zehner == 56) return ("achtzig");
+				if (Zehner == 57) return ("neunzig");
+				return ("Something went wrong ;-)... ");
+			//return (Convert.ToString(zehner));
 		// Einerstelle bestimmen und String zurückgeben.
 		}
 

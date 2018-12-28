@@ -11,12 +11,13 @@ namespace Zahlen_Ausgesprochen_C_sharp
 		//MAIN... incl EINGABE und Programmablauf
 		static void Main(string[] args)
 		{
+			bool loopbreak = false;
+			int inteingabe;
 
 			Console.Write("Bitte eine Zahl eingeben:");
 			string eingabe = Console.ReadLine();
-			int inteingabe;
 			bool ceingabe = Int32.TryParse(eingabe, out (inteingabe));
-
+			
 
 
 			while (!ceingabe) //ToDo: in Methode packen 
@@ -26,8 +27,32 @@ namespace Zahlen_Ausgesprochen_C_sharp
 				eingabe = Console.ReadLine();
 				ceingabe = Int32.TryParse(eingabe, out (inteingabe));
 			}
-			int stellen = anZahlen(inteingabe);
 
+			int stellen = anZahlen(inteingabe);
+			Console.WriteLine(ConvertToAusgesprochen(inteingabe,stellen));
+
+
+			while (!loopbreak)
+			{ 
+				Console.WriteLine("Wenn sie noch eine weitere Zahl eingeben möchten," +
+				" bitte drücken sie: 'j' ");
+				Console.WriteLine("Jede andere Taste beendet das Programm!");
+				ConsoleKeyInfo caseInput = Console.ReadKey(true);
+				switch (caseInput.Key)
+				{
+					case ConsoleKey.J:
+						Console.Write("Bitte eine Zahl eingeben:");
+						eingabe = Console.ReadLine();
+						ceingabe = Int32.TryParse(eingabe, out (inteingabe));
+						stellen = anZahlen(inteingabe);
+						Console.WriteLine(ConvertToAusgesprochen(inteingabe,stellen));
+						break;
+					default:
+						loopbreak = true;
+						break;
+				}
+
+			}
 
 			// Console.WriteLine(hunderter + "und" + einer + zehner, hunderter
 			// , einer, zehner);
@@ -67,7 +92,7 @@ namespace Zahlen_Ausgesprochen_C_sharp
 				return("1000-9999");
 				
 			}
-			else if (Zahl <= 10000) // stellen <= 2 &&
+			else if (Zahl < 10000) // stellen <= 2 &&
 			{
 				// pos INT
 				return("Sie sind größenwahsinnig! Ihre Zahl hat: "+stellen + " Stellen...");

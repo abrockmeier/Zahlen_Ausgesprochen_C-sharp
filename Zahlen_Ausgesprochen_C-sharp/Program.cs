@@ -12,60 +12,83 @@ namespace Zahlen_Ausgesprochen_C_sharp
 		static void Main(string[] args)
 		{
 
-		Eingabe();
-					
+			Eingabe();
+
 		}
 
-		static int Eingabe() // TODO ---> eine Aufgabe je Methode... ;-)
+		static void Eingabe() // TODO ---> eine Aufgabe je Methode... ;-)
 		{
-			bool firstintput = true;
 			bool loopbreak = false;
 			int inteingabe;
+			int stellen;
+			string eingabe;
+			bool ceingabe;
 
-			Console.Write("Bitte eine Zahl eingeben:");
-			string eingabe = Console.ReadLine();
-			bool ceingabe = Int32.TryParse(eingabe, out (inteingabe));
-			
-			int stellen = anZahlen(inteingabe);
-
-			if (firstintput)
-			while (!ceingabe) //ToDo: in Methode packen 
+			do
 			{
-				
-
-				Console.WriteLine("Sie haben {0}, eingegeben! Bitte eine Zahl" +
-				" zwischen -2.147.483.648 und 2.147.483.647 eingeben", eingabe);
+				Console.Write("Bitte eine Zahl eingeben:");
 				eingabe = Console.ReadLine();
 				ceingabe = Int32.TryParse(eingabe, out (inteingabe));
-			Console.WriteLine(ConvertToAusgesprochen(inteingabe,stellen));
-			return (inteingabe);
-			}
-			else
-			{
-				while (!loopbreak)
+				stellen = anZahlen(inteingabe);
+				//		return(1);
+				if (!ceingabe)
 				{
-					Console.WriteLine("Wenn sie noch eine weitere Zahl eingeben möchten," +
-					" bitte drücken sie: 'j' ");
-					Console.WriteLine("Jede andere Taste beendet das Programm!");
-					ConsoleKeyInfo caseInput = Console.ReadKey(true);
-					switch (caseInput.Key)
-					{
-						case ConsoleKey.J:
-							Console.Write("Bitte eine Zahl eingeben:");
-							eingabe = Console.ReadLine();
-							ceingabe = Int32.TryParse(eingabe, out (inteingabe));
-							stellen = anZahlen(inteingabe);
-							Console.WriteLine(ConvertToAusgesprochen(inteingabe, stellen));
-							return (inteingabe);
-							//break;
-						default:
-							loopbreak = true;
-							return(0);
-							//break;
-					}
+					FalscheEingabe(eingabe, ceingabe, inteingabe);
 				}
 			}
-					return(1);
+			while (!ceingabe); //ToDo: ?
+
+				//if (!ceingabe)
+				//{
+				//	FalscheEingabe(eingabe, ceingabe, inteingabe);
+				//}
+
+			Console.WriteLine(ConvertToAusgesprochen(inteingabe, stellen));
+
+			//return (inteingabe);
+			while (!loopbreak)
+			{
+				Console.WriteLine("Wenn sie noch eine weitere Zahl eingeben möchten," +
+				" bitte drücken sie: 'j' ");
+				Console.WriteLine("Jede andere Taste beendet das Programm!");
+				ConsoleKeyInfo caseInput = Console.ReadKey(true);
+
+				switch (caseInput.Key)
+				{
+					case ConsoleKey.J:
+						Eingabe();
+
+						//Ansatz OHNE "Rekursion": (deprecated)
+						//Console.Write("Bitte eine Zahl eingeben:");
+						//eingabe = Console.ReadLine();
+						//ceingabe = Int32.TryParse(eingabe, out (inteingabe));
+						//stellen = anZahlen(inteingabe);
+						
+						if (!ceingabe)
+						{
+							FalscheEingabe(eingabe, ceingabe, inteingabe);
+						}
+						else
+						{ 
+							Console.WriteLine(ConvertToAusgesprochen(inteingabe, stellen));
+						}
+						//return (inteingabe);
+						break;
+					default:
+						loopbreak = true;
+						//return (0);
+						break;
+				}
+			}
+		}
+		
+
+		static void FalscheEingabe(string eingabe, bool ceingabe,int inteingabe)
+		{
+			Console.WriteLine("Sie haben {0}, eingegeben! Bitte eine Zahl" +
+			" zwischen -2.147.483.648 und 2.147.483.647 eingeben", eingabe);
+			//eingabe = Console.ReadLine();
+			//ceingabe = Int32.TryParse(eingabe, out (inteingabe));
 		}
 
 		//VERARBEITUNG
@@ -123,48 +146,48 @@ namespace Zahlen_Ausgesprochen_C_sharp
 				Console.WriteLine("neunzehn");
 				return ("neunzehn");
 			}
-			
+
 			else if (stellen == 1)
 			{
-				return (EinerStelle(Zahl,stellen));
+				return (EinerStelle(Zahl, stellen));
 			}
 			else if (stellen == 2)
 			{
-				return(string.Concat(string.Concat(string.Concat(EinerStelle(Zahl,stellen),
-				ZehnerStelle(Zahl)," = (" + Zahl+")"))));
+				return (string.Concat(string.Concat(string.Concat(EinerStelle(Zahl, stellen),
+				ZehnerStelle(Zahl), " = (" + Zahl + ")"))));
 			}
 			else if (stellen == 3)
 			{
-				
-				return("100-999");
-				
+
+				return ("100-999");
+
 			}
 			else if (stellen == 4)
 			{
 				// pos INT
-				return("1000-9999");
-				
+				return ("1000-9999");
+
 			}
 			else if (Zahl > 10000) // stellen <= 2 &&
 			{
 				// pos INT
-				return("Sie sind größenwahsinnig! Ihre Zahl hat: "+stellen + " Stellen...");
-				
+				return ("Sie sind größenwahsinnig! Ihre Zahl hat: " + stellen + " Stellen...");
+
 			}
-			
+
 			else
 			{
-				
-				return("else fall");
+
+				return ("else fall");
 			}
 		}
-		
+
 
 		static int anZahlen(int n)
 		{
 			if (n < 0)
 			{
-			n = (n == Int32.MinValue) ? Int32.MaxValue : -n;
+				n = (n == Int32.MinValue) ? Int32.MaxValue : -n;
 			}
 			if (n < 10) return 1;
 			if (n < 100) return 2;
@@ -178,7 +201,7 @@ namespace Zahlen_Ausgesprochen_C_sharp
 			else return 10;
 		}
 
-		static string EinerStelle(int Zahl,int stellen)
+		static string EinerStelle(int Zahl, int stellen)
 		{
 			if (stellen == 1)
 			{
@@ -198,7 +221,7 @@ namespace Zahlen_Ausgesprochen_C_sharp
 			}
 			else
 			{
-			string strZahl = Convert.ToString(Zahl);
+				string strZahl = Convert.ToString(Zahl);
 				int Einer = strZahl[stellen - 1];
 				if (Einer == 48) return ("");
 				if (Einer == 49) return ("einund");
@@ -212,26 +235,26 @@ namespace Zahlen_Ausgesprochen_C_sharp
 				if (Einer == 57) return ("neunund");
 				return ("Something went wrong EinerStelle else ;-)... ");
 			}
-		// Einerstelle bestimmen und String zurückgeben.
+			// Einerstelle bestimmen und String zurückgeben.
 		}
 
 		static string ZehnerStelle(int zehner)
 		{
 			string strZahl = Convert.ToString(zehner);
 			int Zehner = Convert.ToInt32(strZahl[0]);
-				if (Zehner == 48) return ("");
-				if (Zehner == 49) return ("zehn?");
-				if (Zehner == 50) return ("zwanzig");
-				if (Zehner == 51) return ("dreißig");
-				if (Zehner == 52) return ("vierzig");
-				if (Zehner == 53) return ("fünfzig");
-				if (Zehner == 54) return ("sechzig");
-				if (Zehner == 55) return ("siebzig");
-				if (Zehner == 56) return ("achtzig");
-				if (Zehner == 57) return ("neunzig");
-				return ("Something went wrong ZehnerStelle ;-)... ");
+			if (Zehner == 48) return ("");
+			if (Zehner == 49) return ("zehn?");
+			if (Zehner == 50) return ("zwanzig");
+			if (Zehner == 51) return ("dreißig");
+			if (Zehner == 52) return ("vierzig");
+			if (Zehner == 53) return ("fünfzig");
+			if (Zehner == 54) return ("sechzig");
+			if (Zehner == 55) return ("siebzig");
+			if (Zehner == 56) return ("achtzig");
+			if (Zehner == 57) return ("neunzig");
+			return ("Something went wrong ZehnerStelle ;-)... ");
 			//return (Convert.ToString(zehner));
-		// Einerstelle bestimmen und String zurückgeben.
+			// Einerstelle bestimmen und String zurückgeben.
 		}
 
 		static string HunderterStelle(int hunderter)
@@ -243,10 +266,12 @@ namespace Zahlen_Ausgesprochen_C_sharp
 		{
 			return ("tausender");
 		}
+
 		
+
+
+
 		// AUSGABE
-
-
 		static void Ausgabe()
 		{
 

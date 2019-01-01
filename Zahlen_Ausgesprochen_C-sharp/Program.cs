@@ -11,41 +11,49 @@ namespace Zahlen_Ausgesprochen_C_sharp
 		//MAIN... incl EINGABE und Programmablauf
 		static void Main(string[] args)
 		{
-
+			
 			Eingabe();
+
+			WeitereEingabe();
 
 		}
 
+
+		// EINGABE
 		static void Eingabe() // TODO ---> eine Aufgabe je Methode... ;-)
 		{
-			bool loopbreak = false;
+			// bool ersteingabe = true;
+			bool ceingabe;
 			int inteingabe;
 			int stellen;
 			string eingabe;
-			bool ceingabe;
 
-			do
-			{
-				Console.Write("Bitte eine Zahl eingeben:");
-				eingabe = Console.ReadLine();
-				ceingabe = Int32.TryParse(eingabe, out (inteingabe));
-				stellen = anZahlen(inteingabe);
-				//		return(1);
-				if (!ceingabe)
+			//if (ersteingabe)
+			//{
+				do
 				{
-					FalscheEingabe(eingabe, ceingabe, inteingabe);
+					Console.Write("Bitte eine Zahl eingeben:");
+					eingabe = Console.ReadLine();
+					ceingabe = Int32.TryParse(eingabe, out (inteingabe));
+					stellen = anZahlen(inteingabe);
+					//		return(1);
+					if (!ceingabe)
+					{
+						FalscheEingabe(eingabe);
+					}
 				}
-			}
-			while (!ceingabe); //ToDo: ?
+				while (!ceingabe); //ToDo: ?
+				// ersteingabe = false;
+				Console.WriteLine(ConvertToAusgesprochen(inteingabe, stellen));
+			//}
 
-				//if (!ceingabe)
-				//{
-				//	FalscheEingabe(eingabe, ceingabe, inteingabe);
-				//}
+			
+		}
+		
 
-			Console.WriteLine(ConvertToAusgesprochen(inteingabe, stellen));
-
-			//return (inteingabe);
+		static void WeitereEingabe()
+		{
+			bool loopbreak = false;
 			while (!loopbreak)
 			{
 				Console.WriteLine("Wenn sie noch eine weitere Zahl eingeben möchten," +
@@ -56,23 +64,8 @@ namespace Zahlen_Ausgesprochen_C_sharp
 				switch (caseInput.Key)
 				{
 					case ConsoleKey.J:
-						Eingabe();
-
-						//Ansatz OHNE "Rekursion": (deprecated)
-						//Console.Write("Bitte eine Zahl eingeben:");
-						//eingabe = Console.ReadLine();
-						//ceingabe = Int32.TryParse(eingabe, out (inteingabe));
-						//stellen = anZahlen(inteingabe);
 						
-						if (!ceingabe)
-						{
-							FalscheEingabe(eingabe, ceingabe, inteingabe);
-						}
-						else
-						{ 
-							Console.WriteLine(ConvertToAusgesprochen(inteingabe, stellen));
-						}
-						//return (inteingabe);
+						Eingabe();
 						break;
 					default:
 						loopbreak = true;
@@ -81,14 +74,11 @@ namespace Zahlen_Ausgesprochen_C_sharp
 				}
 			}
 		}
-		
 
-		static void FalscheEingabe(string eingabe, bool ceingabe,int inteingabe)
+		static void FalscheEingabe(string eingabe)
 		{
 			Console.WriteLine("Sie haben {0}, eingegeben! Bitte eine Zahl" +
 			" zwischen -2.147.483.648 und 2.147.483.647 eingeben", eingabe);
-			//eingabe = Console.ReadLine();
-			//ceingabe = Int32.TryParse(eingabe, out (inteingabe));
 		}
 
 		//VERARBEITUNG
@@ -253,8 +243,6 @@ namespace Zahlen_Ausgesprochen_C_sharp
 			if (Zehner == 56) return ("achtzig");
 			if (Zehner == 57) return ("neunzig");
 			return ("Something went wrong ZehnerStelle ;-)... ");
-			//return (Convert.ToString(zehner));
-			// Einerstelle bestimmen und String zurückgeben.
 		}
 
 		static string HunderterStelle(int hunderter)
@@ -271,12 +259,15 @@ namespace Zahlen_Ausgesprochen_C_sharp
 
 
 
-		// AUSGABE
+		// AUSGABE	(Erfolgt bisher über die Programmlogik)
+		/*
 		static void Ausgabe()
 		{
 
 
 		}
+		*/
+
 	}
 }
 
